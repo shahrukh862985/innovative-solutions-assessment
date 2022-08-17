@@ -5743,6 +5743,10 @@ var render = function render() {
     attrs: {
       scope: "row"
     }
+  }, [_vm._v("Ticket Price")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.price) + "/RS")])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      scope: "row"
+    }
   }, [_vm._v("Added")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.created_at))])]), _vm._v(" "), _c("tr", [_c("th", {
     attrs: {
       scope: "row"

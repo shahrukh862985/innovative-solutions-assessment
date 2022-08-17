@@ -14,6 +14,10 @@
                 <table class="table">
                     <tbody>
                         <tr>
+                            <th scope="row">Ticket Price</th>
+                            <td>{{film.price}}/RS</td>
+                        </tr>
+                        <tr>
                             <th scope="row">Added</th>
                             <td>{{film.created_at}}</td>
                         </tr>
