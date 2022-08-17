@@ -11,6 +11,7 @@
                 <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <router-link to="/" class="nav-link">Films</router-link>
+                        <router-link v-if="authenticate" to="/films/create" class="nav-link">Add Film</router-link>
                     </div>
                     <div class="navbar-nav" v-if="!authenticate">
                         <router-link to="/login" class="nav-link">Login</router-link>
@@ -53,6 +54,7 @@ export default {
             axios.post(`${url}/api/logout`,{})
                 .then(response => {
                     _this.signOut()
+                    this.authenticate = false
                     Vue.$toast.open({
                         message: response.data.message,
                         type: 'success',

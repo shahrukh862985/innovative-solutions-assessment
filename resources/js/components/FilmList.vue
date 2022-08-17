@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-md-4" v-for="(film, key) in films" :key="film.id">
                 <div class="card mb-2" style="width: 18rem;">
-                    <img :src="film.photo" class="card-img-top" :alt="film.slug">
+                    <img :src="film.photo" class="" style="height: 200px;width: auto;" :alt="film.slug">
                     <div class="card-body">
                         <h5 class="card-title">{{ film.name }}</h5>
-                        <router-link :to="'/films/'+film.slug" class="btn btn-primary">Show Details</router-link>
+                        <router-link :to="'/film-details/'+film.slug" class="btn btn-primary">Show Details</router-link>
                     </div>
                     <div class="card-footer text-muted">
                         Release Date: {{ film.release_date }}

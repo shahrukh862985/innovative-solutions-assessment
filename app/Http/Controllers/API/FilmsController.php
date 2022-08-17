@@ -23,21 +23,21 @@ class FilmsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|min:4|max:200',
-            'slug' => 'required|string|min:4|max:200|unique:films,slug',
-            'description' => 'required|string|min:4|max:1500',
+            'name' => 'required|string|max:200',
+            'slug' => 'required|string|max:200|unique:films,slug',
+            'description' => 'required|string|max:1500',
             'release_date' => 'required|date',
             'rating' => 'required|numeric|min:0.1|max:5',
             'price' => 'required|numeric',
-            'country' => 'required|string|min:4|max:200',
+            'country' => 'required|string|max:200',
             'genre' => 'required|array|min:1|max:20',
             'photo' => 'required|file|mimes:jpg,png|max:1024'
         ]);
         if (!$validator->passes()) {
             return response()->json(['status'=>false,'error'=>$validator->errors()->all()],400);
         }
-        if($request->slug !== Str::slug($request->slug,'-')){
-            return response()->json(['status'=>false,'error'=>["slug" => 'slug must be without space and separated with dashes \'-\' ']],400);
+        if(Str::lower($request->slug) !== Str::slug($request->slug,'-')){
+            return response()->json(['status'=>false,'error'=>'slug must be without space and separated with dashes \'-\' '],400);
         }
         $file_name = null;
         try{
