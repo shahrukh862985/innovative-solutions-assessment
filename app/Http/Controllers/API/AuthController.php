@@ -27,10 +27,12 @@ class AuthController extends Controller
             ]);
         }
         Auth::loginUsingId($user->id);
+        $token = $user->createToken('user', [])->plainTextToken;
         return response()->json([
             'status' => true,
             'message' => 'successfully loggedIn.',
-            'user' => $user
+            'user' => $user,
+            'token' => $token
         ]);
     }
     public function register(Request $request){
@@ -58,7 +60,7 @@ class AuthController extends Controller
         Auth::login($user);
         return response()->json([
             'status' => true,
-            'message' => 'registration successful.'
+            'message' => 'registration successful.',
         ]);
     }
 

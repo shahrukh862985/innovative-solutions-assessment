@@ -5338,11 +5338,7 @@ var url = "http://127.0.0.1:8000";
     signOut: "auth/logout"
   })), {}, {
     changeAuthentication: function changeAuthentication() {
-      console.log('change authentication');
       this.authenticate = this.$store.state.auth.authenticated;
-      this.$router.push({
-        name: 'films'
-      });
     },
     logoutRequest: function logoutRequest() {
       var _this2 = this;
@@ -5386,14 +5382,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var url = "http://127.0.0.1:8000";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       film: {}
     };
   },
-  created: function created() {},
-  methods: {}
+  created: function created() {
+    this.getFilmDetail();
+  },
+  methods: {
+    parseGenre: function parseGenre(film) {
+      if (film.hasOwnProperty('genre')) return film.genre.join(', ');
+      return '';
+    },
+    getFilmDetail: function getFilmDetail() {
+      var _this2 = this;
+
+      var _this = this;
+
+      var paramSlug = _this.$route.params.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(url, "/api/films/").concat(paramSlug)).then(function (response) {
+        _this.film = response.data;
+      })["catch"](function (err) {
+        Vue.$toast.open({
+          message: _this2.parseValidationErrors(err.response.data.error),
+          type: 'error',
+          position: 'top-right'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5409,14 +5432,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var url = "http://127.0.0.1:8000";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: {}
+      films: []
     };
   },
-  created: function created() {},
-  methods: {}
+  created: function created() {
+    this.getFilms();
+  },
+  methods: {
+    getFilms: function getFilms() {
+      var _this2 = this;
+
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(url, "/api/films")).then(function (response) {
+        _this.films = response.data;
+      })["catch"](function (err) {
+        Vue.$toast.open({
+          message: _this2.parseValidationErrors(err.response.data.error),
+          type: 'error',
+          position: 'top-right'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5480,6 +5525,10 @@ var url = "http://127.0.0.1:8000";
         });
         setTimeout(function () {
           _this.$parent.changeAuthentication();
+
+          _this.$router.push({
+            name: 'films'
+          });
         }, 500);
       })["catch"](function (err) {
         Vue.$toast.open({
@@ -5551,6 +5600,10 @@ var url = "http://127.0.0.1:8000";
         });
         setTimeout(function () {
           _this.$parent.changeAuthentication();
+
+          _this.$router.push({
+            name: 'films'
+          });
         }, 500);
       })["catch"](function (err) {
         Vue.$toast.open({
@@ -5668,21 +5721,44 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", [_c("div", {
+    staticClass: "row justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.film.photo,
+      alt: _vm.film.slug
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("h2", [_vm._v(_vm._s(_vm.film.name))]), _vm._v(" "), _c("table", {
+    staticClass: "table"
+  }, [_c("tbody", [_c("tr", [_c("th", {
+    attrs: {
+      scope: "row"
+    }
+  }, [_vm._v("Added")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.created_at))])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      scope: "row"
+    }
+  }, [_vm._v("Rating")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.rating))])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      scope: "row"
+    }
+  }, [_vm._v("Released")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.release_date))])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      scope: "row"
+    }
+  }, [_vm._v("Genre")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.parseGenre(_vm.film)))])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("Country")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.country))])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.film.description))])])])])])])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h3", {
-    staticClass: "text-center"
-  }, [_vm._v("Film Detail")]), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-4"
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -5704,21 +5780,41 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("div", [_c("h3", {
     staticClass: "text-center"
   }, [_vm._v("List of Films")]), _vm._v(" "), _c("div", {
     staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-4"
-  })])]);
-}];
+  }, _vm._l(_vm.films, function (film, key) {
+    return _c("div", {
+      key: film.id,
+      staticClass: "col-md-4"
+    }, [_c("div", {
+      staticClass: "card mb-2",
+      staticStyle: {
+        width: "18rem"
+      }
+    }, [_c("img", {
+      staticClass: "card-img-top",
+      attrs: {
+        src: film.photo,
+        alt: film.slug
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(film.name))]), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-primary",
+      attrs: {
+        to: "/films/" + film.slug
+      }
+    }, [_vm._v("Show Details")])], 1), _vm._v(" "), _c("div", {
+      staticClass: "card-footer text-muted"
+    }, [_vm._v("\n                    Release Date: " + _vm._s(film.release_date) + "\n                ")])])]);
+  }), 0)]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -6081,8 +6177,6 @@ router.beforeEach(function (to, from, next) {
       name: "login"
     });
   }
-
-  console.log("running");
 });
 vue__WEBPACK_IMPORTED_MODULE_5__["default"].mixin({
   methods: {

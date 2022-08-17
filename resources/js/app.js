@@ -34,7 +34,6 @@ router.beforeEach((to, from, next) => {
         else
             next({name:"login"})
     }
-    console.log("running");
 })
 
 

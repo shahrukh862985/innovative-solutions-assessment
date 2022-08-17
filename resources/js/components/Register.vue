@@ -69,6 +69,7 @@ export default {
                     });
                     setTimeout(function(){
                         _this.$parent.changeAuthentication()
+                        _this.$router.push({name:'films'})
                     },500)
                     
                 })

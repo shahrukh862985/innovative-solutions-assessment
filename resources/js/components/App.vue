@@ -46,9 +46,7 @@ export default {
             signOut:"auth/logout"
         }),
         changeAuthentication(){
-            console.log('change authentication');
             this.authenticate = this.$store.state.auth.authenticated
-            this.$router.push({name:'films'})
         },
         logoutRequest(){
             let _this = this
