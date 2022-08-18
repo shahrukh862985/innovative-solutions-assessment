@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Film;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,7 +20,7 @@ class FilmSeeder extends Seeder
         $user = User::firstOrCreate([
             'email' => 'test@innovative-solutions.com',
         ],[
-            'name' => 'test',
+            'name' => 'John Doe',
             'password' => Hash::make("123123123"),
         ]);
 
@@ -35,6 +36,11 @@ class FilmSeeder extends Seeder
             'photo' => null,
             'created_by' => $user->id,
         ]);
+        $comment = Comment::create([
+            'user_id' => $user->id,
+            'film_id' => $film->id,
+            'comment' => 'This film was really awesome.',
+        ]);
 
         $film = Film::firstOrCreate([
             'name' => 'Laal Singh Chaddha',
@@ -48,7 +54,11 @@ class FilmSeeder extends Seeder
             'photo' => null,
             'created_by' => $user->id,
         ]);
-
+        $comment = Comment::create([
+            'user_id' => $user->id,
+            'film_id' => $film->id,
+            'comment' => 'A great official remake of Forest Gump.',
+        ]);
         $film = Film::firstOrCreate([
             'name' => 'Day Shift',
             'slug' => Str::slug('Day Shift','-'),
@@ -60,6 +70,11 @@ class FilmSeeder extends Seeder
             'genre' => json_encode(['Action','Comedy','Fantasy','Horror','Thriller']),
             'photo' => null,
             'created_by' => $user->id,
+        ]);
+        $comment = Comment::create([
+            'user_id' => $user->id,
+            'film_id' => $film->id,
+            'comment' => 'A great Comedy Film.',
         ]);
     }
 }
