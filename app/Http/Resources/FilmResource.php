@@ -25,7 +25,8 @@ class FilmResource extends JsonResource
             'country' => $this->country,
             'genre' => json_decode($this->genre),
             'photo' => $this->file_path,
-            'created_at' => date("F j, Y",strtotime($this->created_at))
+            'created_at' => date("F j, Y",strtotime($this->created_at)),
+            'comments' => CommentResource::collection($this->whenLoaded('comments'))
         ];
     }
 }

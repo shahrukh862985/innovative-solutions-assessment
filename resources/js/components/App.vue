@@ -39,19 +39,19 @@ export default {
             authenticate: false
         }
     },
-    created(){
+    created() {
         this.changeAuthentication()
     },
-    methods:{
+    methods: {
         ...mapActions({
-            signOut:"auth/logout"
+            signOut: "auth/logout"
         }),
-        changeAuthentication(){
+        changeAuthentication() {
             this.authenticate = this.$store.state.auth.authenticated
         },
-        logoutRequest(){
+        logoutRequest() {
             let _this = this
-            axios.post(`${url}/api/logout`,{})
+            axios.post(`${url}/api/logout`, {})
                 .then(response => {
                     _this.signOut()
                     this.authenticate = false
@@ -60,10 +60,10 @@ export default {
                         type: 'success',
                         position: 'top-right'
                     });
-                    setTimeout(function(){
-                        _this.$router.push({name:"login"})
-                    },700)
-                    
+                    setTimeout(function () {
+                        _this.$router.push({ name: "login" })
+                    }, 700)
+
                 })
                 .catch(err => {
                     Vue.$toast.open({
@@ -72,6 +72,9 @@ export default {
                         position: 'top-right'
                     });
                 })
+        },
+        isAuthenticate() {
+            return this.authenticate;
         }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CommentsController;
 use App\Http\Controllers\API\FilmsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(FilmsController::class)->group(function () {
         Route::post('/films', 'store');
     });
+
+    Route::post('/comments',[CommentsController::class,'store']);
 });

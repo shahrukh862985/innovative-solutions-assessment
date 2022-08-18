@@ -70,7 +70,7 @@ class FilmsController extends Controller
 
     public function show($id)
     {
-        $film = Film::where('slug',$id)->firstOrFail();
+        $film = Film::with('comments')->where('slug',$id)->firstOrFail();
         return new FilmResource($film);
     }
 }

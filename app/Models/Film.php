@@ -22,14 +22,20 @@ class Film extends Model
     ];
     protected $appends = ['file_path'];
 
-    public function getFilePathAttribute(){
-        if($this->photo != null){
-            return asset('/storage/'.$this->photo);
+    public function getFilePathAttribute()
+    {
+        if ($this->photo != null) {
+            return asset('/storage/' . $this->photo);
         }
         return asset('images/placeholder-image.png');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class,'created_by','id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'film_id', 'id')->orderByDesc('id');
     }
 }
